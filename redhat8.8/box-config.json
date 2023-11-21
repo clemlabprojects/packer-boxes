@@ -23,25 +23,26 @@
     {
       "type": "virtualbox-iso",
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+        "<up><wait><tab><wait> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait5>"
       ],
       "boot_wait": "10s",
+      "hard_drive_interface": "sata",
       "disk_size": 81920,
       "guest_os_type": "RedHat_64",
       "headless": true,
       "http_directory": "http",
       "iso_urls": [
-        "https://download.rockylinux.org/pub/rocky/8/isos/x86_64/Rocky-8.8-x86_64-boot.iso"
+        "/Users/lbakalian/Downloads/rhel-8.8-x86_64-dvd.iso"
       ],
-      "iso_checksum": "sha256:96c9d96c33ebacc8e909dcf8abf067b6bb30588c0c940a9c21bb9b83f3c99868",
+      "iso_checksum": "sha256:517abcc67ee3b7212f57e180f5d30be3e8269e7a99e127a3399b7935c7e00a09",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
-      "ssh_wait_timeout": "1800s",
+      "ssh_wait_timeout": "20m",
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
-      "vm_name": "packer-rockylinux-8-x86_64",
+      "vm_name": "packer-redhat-8-x86_64",
       "vboxmanage": [
         [
           "modifyvm",
@@ -54,14 +55,15 @@
           "{{.Name}}",
           "--cpus",
           "1"
-        ]
+        ],
+        ["modifyvm", "{{.Name}}", "--nat-localhostreachable1", "on"]
       ]
     }
   ],
   "post-processors": [
     [
       {
-        "output": "builds/{{.Provider}}-rockylinux8.box",
+        "output": "builds/{{.Provider}}-redhat8.box",
         "type": "vagrant"
       }
     ]
