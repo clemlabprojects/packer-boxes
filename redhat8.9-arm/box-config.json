@@ -57,7 +57,7 @@
           "--cpus",
           "4"
         ],
-        ["modifyvm", "{{.Name}}", "--nat-localhostreachable1", "on"],
+        ["modifyvm", "{{.Name}}", "--nat-localhostreachable1", "on"]
 
       ]
     }
