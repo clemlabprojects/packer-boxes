@@ -6,6 +6,7 @@ This project contains the Packer build configurations for all of Jeff Geerling's
 
   - [geerlingguy/ubuntu2004](https://app.vagrantup.com/geerlingguy/boxes/ubuntu2004) - [`ubuntu2004` directory](ubuntu2004/)
   - [geerlingguy/ubuntu1804](https://app.vagrantup.com/geerlingguy/boxes/ubuntu1804) - [`ubuntu1804` directory](ubuntu1804/)
+  - `ubuntu2404` - [`ubuntu2404` directory](ubuntu2404/)
   - [geerlingguy/rockylinux8](https://app.vagrantup.com/geerlingguy/boxes/rockylinux8) - [`rockylinux8` directory](rockylinux8/)
   - [geerlingguy/centos7](https://app.vagrantup.com/geerlingguy/boxes/centos7) - [`centos7` directory](centos7/)
   - [geerlingguy/debian11](https://app.vagrantup.com/geerlingguy/boxes/debian11) - [`debian11` directory](debian11/)
@@ -33,9 +34,9 @@ Make sure all the required software (listed above) is installed, then cd into on
 
     $ packer build -var 'version=1.2.0' box-config.json
 
-After a few minutes, Packer should tell you the box was generated successfully, and the box was uploaded to Vagrant Cloud.
+After a few minutes, Packer should tell you the box was generated successfully. Some templates also upload the box to Vagrant Cloud.
 
-> **Note**: This configuration includes a post-processor that pushes the built box to Vagrant Cloud (which requires a `VAGRANT_CLOUD_TOKEN` environment variable to be set); remove the `vagrant-cloud` post-processor from the Packer template to build the box locally and not push it to Vagrant Cloud. You don't need to specify a `version` variable either, if not using the `vagrant-cloud` post-processor.
+> **Note**: Some configurations include a `vagrant-cloud` post-processor, which requires a `VAGRANT_CLOUD_TOKEN` environment variable. The new `ubuntu2404` template only emits a local `.box` file, so it does not need a Vagrant Cloud token or a `version` value.
 
 ### Building _all_ the boxes
 

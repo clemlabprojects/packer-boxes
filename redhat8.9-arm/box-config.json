@@ -32,9 +32,9 @@
       "headless": true,
       "http_directory": "http",
       "iso_urls": [
-        "/Users/lbakalian/Downloads/rhel-9.3-aarch64-dvd.iso"
+        "/Users/lbakalian/Downloads/rhel-8.9-aarch64-dvd.iso"
       ],
-      "iso_checksum": "sha256:3ed389624e0ed8bf5dfacbc049324b83f999f335f88844621a8b6c7027d574b0",
+      "iso_checksum": "sha256:79abc9bb7bfdd0ca7caf510d25a3049389cb31a4721f9cc10c385eae0b930b8b",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -42,28 +42,30 @@
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
-      "vm_name": "packer-redhat-9-aarch64",
+      "vm_name": "packer-redhat-8-aarch64",
       "vboxmanage": [
         [
+          
           "modifyvm",
           "{{.Name}}",
           "--memory",
-          "2048"
+          "4096"
         ],
         [
           "modifyvm",
           "{{.Name}}",
           "--cpus",
-          "1"
+          "4"
         ],
-        ["modifyvm", "{{.Name}}", "--nat-localhostreachable1", "on"]
+        ["modifyvm", "{{.Name}}", "--nat-localhostreachable1", "on"],
+
       ]
     }
   ],
   "post-processors": [
     [
       {
-        "output": "builds/{{.Provider}}-redhat9-arm.box",
+        "output": "builds/{{.Provider}}-redhat8.box",
         "type": "vagrant"
       }
     ]

@@ -9,6 +9,11 @@
       "script": "scripts/ansible.sh"
     },
     {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "script": "scripts/setup.sh"
+    },
+    {
       "type": "ansible-local",
       "playbook_file": "../shared/main.yml",
       "galaxy_file": "../shared/requirements.yml"
@@ -23,26 +28,35 @@
     {
       "type": "virtualbox-iso",
       "boot_command": [
-        "<up><wait><tab><wait> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait5>"
+        "<wait><esc><wait>",
+        "e<wait>",
+        "<down><down><down><end><wait>",
+        "<left><left><left><left><wait>",
+        " autoinstall<wait>",
+        "<f10><wait>"
       ],
       "boot_wait": "10s",
-      "hard_drive_interface": "sata",
       "disk_size": 81920,
-      "guest_os_type": "RedHat_64",
+      "guest_os_type": "Ubuntu_64",
       "headless": true,
-      "http_directory": "http",
-      "iso_urls": [
-        "/Users/lbakalian/Downloads/rhel-9.3-aarch64-dvd.iso"
+      "cd_files": [
+        "http/meta-data",
+        "http/user-data"
       ],
-      "iso_checksum": "sha256:3ed389624e0ed8bf5dfacbc049324b83f999f335f88844621a8b6c7027d574b0",
+      "cd_label": "cidata",
+      "iso_urls": [
+        "/Users/lbakalian/Downloads/ubuntu-24.04.2-live-server-amd64.iso",
+        "https://old-releases.ubuntu.com/releases/24.04.2/ubuntu-24.04.2-live-server-amd64.iso"
+      ],
+      "iso_checksum": "sha256:d6dab0c3a657988501b4bd76f1297c053df710e06e0c3aece60dead24f270b4d",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
-      "ssh_wait_timeout": "20m",
-      "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
+      "ssh_wait_timeout": "1800s",
+      "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
-      "vm_name": "packer-redhat-9-aarch64",
+      "vm_name": "packer-ubuntu-24.04-amd64",
       "vboxmanage": [
         [
           "modifyvm",
@@ -54,16 +68,15 @@
           "modifyvm",
           "{{.Name}}",
           "--cpus",
-          "1"
-        ],
-        ["modifyvm", "{{.Name}}", "--nat-localhostreachable1", "on"]
+          "2"
+        ]
       ]
     }
   ],
   "post-processors": [
     [
       {
-        "output": "builds/{{.Provider}}-redhat9-arm.box",
+        "output": "builds/{{.Provider}}-ubuntu2404.box",
         "type": "vagrant"
       }
     ]
