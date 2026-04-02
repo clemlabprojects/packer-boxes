@@ -31,7 +31,7 @@
         "<wait5>e<wait5>",
         "<down><down><down><end><wait>",
         "<left><left><left><left><wait>",
-        " autoinstall ds=nocloud-net\\;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/<wait>",
+        " autoinstall<wait>",
         "<f10><wait>"
       ],
       "boot_wait": "30s",
@@ -39,7 +39,11 @@
       "disk_size": 81920,
       "guest_os_type": "Ubuntu_64",
       "headless": true,
-      "http_directory": "http",
+      "cd_files": [
+        "http/meta-data",
+        "http/user-data"
+      ],
+      "cd_label": "cidata",
       "iso_urls": [
         "/Users/lbakalian/Downloads/ubuntu-24.04.2-live-server-amd64.iso",
         "https://old-releases.ubuntu.com/releases/24.04.2/ubuntu-24.04.2-live-server-amd64.iso"
