@@ -28,8 +28,8 @@ autoinstall:
     username: vagrant
     password: "$6$NofkfMs0DXCjLl2L$ipq.zTzqfSgyI82ioW9KBewJVJTPJRUwRTg919DLqZX9cLu3h99b/qL4WwhwRbJUE9LWQ13YA37tBOyEdzPNb0"
   late-commands:
-    - curtin in-target --target=/target -- mkdir -p /etc/sudoers.d
-    - curtin in-target --target=/target -- bash -c "printf 'vagrant ALL=(ALL) NOPASSWD: ALL\n' > /etc/sudoers.d/vagrant"
-    - curtin in-target --target=/target -- chmod 0440 /etc/sudoers.d/vagrant
-    - curtin in-target --target=/target -- mkdir -p /etc/ssh/sshd_config.d
-    - curtin in-target --target=/target -- bash -c "printf 'PasswordAuthentication yes\n' > /etc/ssh/sshd_config.d/99-packer.conf"
+    - [curtin, in-target, --, mkdir, -p, /etc/sudoers.d]
+    - [curtin, in-target, --, bash, -c, "printf 'vagrant ALL=(ALL) NOPASSWD: ALL\n' > /etc/sudoers.d/vagrant"]
+    - [curtin, in-target, --, chmod, "0440", /etc/sudoers.d/vagrant]
+    - [curtin, in-target, --, mkdir, -p, /etc/ssh/sshd_config.d]
+    - [curtin, in-target, --, bash, -c, "printf 'PasswordAuthentication yes\n' > /etc/ssh/sshd_config.d/99-packer.conf"]
